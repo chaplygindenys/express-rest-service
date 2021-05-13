@@ -43,25 +43,24 @@ const saveEntity = (tableName, entity) => {
 };
 
 const removeEntity = async (tableName, id) => {
-  const entity = getEntity(tableName, id);
-  if (entity) {
-    db[`fix${tableName}Structure`](entity);
-    const index = db [tableName].indexOf(entity);
-    db[tableName] = [
-      ...db[tableName].slice(0, index),
-      ...(db[tableName].length > index + 1
-        ? db[tableName].slice(index + 1)
-        : [])
-    ];
+  const oldEntity = getEntity(tableName, id);
+  if (oldEntity) {
+    db[tableName][db[tableName].indexOf(oldEntity)] = {};
   }
-  return entity;
+   if((getEntity(tableName, id)) === undefined){
+     return 'Done'
+   }
+     return oldEntity ;
+
+
 };
 
 
 const putEntity = async (tableName, id, entity) => {
   const oldEntity = getEntity(tableName, id);
   if (oldEntity) {
-    db[tableName][db[tableName].indexOf(oldEntity)] = { ...entity };
+   const oldId = {'id':id};
+    db[tableName][db[tableName].indexOf(oldEntity)] = Object.assign(entity, oldId) ;
   }
   return getEntity(tableName, id);
 };

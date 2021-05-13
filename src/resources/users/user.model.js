@@ -20,10 +20,10 @@ class User {
 
   static fromRequest(user) {
     const { id, name, login, password } = user;
-     if (!id){
-       return { id:uuidv4(), name, login, password };
+     if (id === undefined){
+       return { name, login, password };
      }
-     return { id, name, login, password };
+     return { name, login, password };
   }
 
 

@@ -16,9 +16,9 @@ const TABLE_NAME = 'Users';
   const postUser = async (user) => {
     const newUser = await DB.saveEntity(TABLE_NAME, user);
     if(!newUser) {
-      return ("Not Found")
+      return ("User no created")
     }
-    return "Created";
+    return newUser;
   };
 
 
@@ -35,7 +35,7 @@ const putUser = async (id, user) => {
 
   const entity = await DB.putEntity(TABLE_NAME, id, user);
   if(!entity) {
-    return (`Cold not find a user with id: ${id}`)
+    return (undefined)
   }
   return entity;
 };
