@@ -1,60 +1,36 @@
 const { v4: uuidv4 } = require('uuid');
 
-class Task {
+
+
+
+  class Task {
   constructor({
                 id = uuidv4(),
-                title = 'string',
+                title = 'TaskTitle',
                 order = 0,
-                description = 'Lorem ipsum',
-                userId = 'string'
-
+                description = 'TaskDescription',
+                userId = null,
+                boardId = null,
+                columnId = null
               } = {}) {
     this.id = id;
     this.title = title;
     this.order = order;
     this.description = description;
     this.userId = userId;
+    this.boardId = boardId;
+    this.columnId = columnId;
   }
 
   static toResponse(task) {
-    const {id,
-      title,
-      order,
-      description,
-      userId,} = task;
-    return { id,
-      title,
-      order,
-      description,
-      userId, };
+    const { id, title, order, description, userId, boardId, columnId } = task;
+    return { id, title, order, description, userId, boardId, columnId };
   }
 
-  static fromRequest(task) {
-    const {
-      id,
-      title,
-      order,
-      description,
-      userId,
-    } = task;
-    if (id === undefined) {
-      return {
-        id: uuidv4(),
-        title,
-        order,
-        description,
-        userId,
-      };
-    }
-    return {
-      id,
-      title,
-      order,
-      description,
-      userId,
-    };
+  static fromRequest(body) {
+    return new Task(body);
   }
-
 }
+
 
 module.exports = Task;
