@@ -5,7 +5,7 @@ const TABLE_NAME = 'Tasks';
 const getAll = async () => DB.getAllEntities(TABLE_NAME);
 
 const get = async  id =>{
-  const task = await DB.getEntities(TABLE_NAME, id);
+  const task = await DB.getEntity(TABLE_NAME, id);
 
   if(!task) {
     return (`Cold not find a task with id: ${id}`)
@@ -13,9 +13,14 @@ const get = async  id =>{
   return task;
 };
 
-const postTask = async (task) => DB.saveEntity(TABLE_NAME, task);
+const postTask = async (task) => {
+  const newTask = await DB.saveEntity(TABLE_NAME, task);
 
-
+  if(!newTask) {
+    return ("Task no created")
+  }
+  return newTask;
+}
 
 
 const deleteTask = async (id) => {
@@ -29,7 +34,7 @@ const putTask = async (id, task) => {
 
   const entity = await DB.putEntity(TABLE_NAME, id, task);
   if(!entity) {
-    return (`Cold not find a task with id: ${id}`)
+    return (undefined);
   }
   return entity;
 };

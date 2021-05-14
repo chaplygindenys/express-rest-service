@@ -36,7 +36,7 @@ router.route('/:id').put(
     if (!user) {
       res.status(404).json(req.params.id);
     } else {
-      res.status(200).send(User.toResponse(user));
+      res.status(200).json(User.toResponse(user));
     }
   }
 );

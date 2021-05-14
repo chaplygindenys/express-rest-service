@@ -28,6 +28,33 @@ class Task {
       description,
       userId, };
   }
+
+  static fromRequest(task) {
+    const {
+      id,
+      title,
+      order,
+      description,
+      userId,
+    } = task;
+    if (id === undefined) {
+      return {
+        id: uuidv4(),
+        title,
+        order,
+        description,
+        userId,
+      };
+    }
+    return {
+      id,
+      title,
+      order,
+      description,
+      userId,
+    };
+  }
+
 }
 
 module.exports = Task;

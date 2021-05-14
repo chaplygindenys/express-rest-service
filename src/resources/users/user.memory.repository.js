@@ -22,8 +22,6 @@ const TABLE_NAME = 'Users';
   };
 
 
-
-
 const deleteUser = async (id) => {
   if (!(await DB.removeEntity(TABLE_NAME, id))){
   return (`Cold not find a user with id: ${id}`);
@@ -35,7 +33,7 @@ const putUser = async (id, user) => {
 
   const entity = await DB.putEntity(TABLE_NAME, id, user);
   if(!entity) {
-    return (undefined)
+    return (undefined);
   }
   return entity;
 };

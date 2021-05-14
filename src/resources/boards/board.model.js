@@ -5,15 +5,18 @@ class Board {
                 id = uuidv4(),
                 title = 'BOARD TITLE',
                 columns = [{
-                  Id: uuidv4(),
-                  Title: 'columnTitle',
-                  Order: 0
+                  id: uuidv4(),
+                  title: 'columnTitle',
+                  order: 0
                 }]
               } = {}) {
     this.id = id;
     this.title = title;
-    this.columns = columns;
+    this.columns =[];
+    this.columns.push(columns[0]);
   }
+
+
 
   static toResponse(board) {
     const { id, title, columns } = board;
