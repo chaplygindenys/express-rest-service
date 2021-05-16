@@ -13,7 +13,9 @@ class Board {
     this.id = id;
     this.title = title;
     this.columns =[];
+
     this.columns.push(columns[0]);
+    this.columns[0].id =uuidv4();
   }
 
 
@@ -24,14 +26,14 @@ class Board {
   }
 
   static fromRequest(board) {
-    const {
-      id ,
-        title,
-        columns} = board;
-    if (!id){
-      return { id:uuidv4(), title, columns};
-    }
-    return { id, title, columns};
+    const{ title, columns } = board;
+
+
+
+    return {
+                  title,
+                  columns
+                };
   }
 
 }
