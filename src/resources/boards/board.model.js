@@ -1,6 +1,16 @@
 const { v4: uuidv4 } = require('uuid');
+const Column = require('./column.model');
+
 
 class Board {
+  /**
+   * assigns param id:string new  id:string
+   * takes parameters and assigns them to the properties
+   * of the class
+   * @param id:string
+   * @param title:string
+   * @param columns:[{string,string,number}]
+   */
   constructor({
                 id = uuidv4(),
                 title = 'BOARD TITLE',
@@ -12,30 +22,8 @@ class Board {
               } = {}) {
     this.id = id;
     this.title = title;
-    this.columns =[];
+    this.columns = columns.map(column => new Column(column));
 
-    this.columns.push(columns[0]);
-    this.columns[0].id =uuidv4();
-  }
-
-
-
-  static toResponse(board) {
-    const { id, title, columns } = board;
-    return { id, title, columns};
-  }
-
-  static fromRequest(board) {
-    const{ title, columns } = board;
-
-
-
-    return {
-                  title,
-                  columns
-                };
-  }
-
+  };
 }
-
 module.exports = Board;
