@@ -1,44 +1,70 @@
-const DB = require('../../utils/controlDb');
+let Boards = [];
 
-const TABLE_NAME = 'Boards';
+/**
+ * return all boards
+ * @return {Promise<*[]>}
+ */
+const getAll = async () => Boards;
 
-const getAll = async () => DB.getAllEntities(TABLE_NAME);
-
-const get = async  id =>{
-  const board= await DB.getEntity(TABLE_NAME, id);
-
-  if(!board) {
-    return (`Cold not find a board with id: ${id}`)
+/**
+ * it find in [Boards] board with id : @param id
+ * if it is return it
+ * or throw new error to up
+ * @param id
+ * @return {Promise<*>}
+ */
+const get = async (id) => {
+  const currentBoard = Boards.find(board => board.id === id);
+  if(!currentBoard) {
+    throw new Error('Not fond')
   }
+  return currentBoard;
+};
+
+
+/**
+ * push new board to [Boards]
+ * and return new board
+ * @param board
+ * @return {Promise<*>}
+ */
+const save = async (board) => {
+  Boards.push(board)
   return board;
 };
 
-const postBoard = async (board) => DB.saveEntity(TABLE_NAME, board);
+/**
+ * find board with @param id
+ * make updateBoard {id + board }
+ * and changed boardIndex to updateBoard
+ * return updateBoard
+ * @param id
+ * @param board
+ * @return {Promise<*&{id}>}
+ */
+const update = async (id, board) => {
+  const boardIndex = Boards.findIndex(user => user.id === id);
+  const updatedBoard = {
+    id,
+    ...board
+  };
+  Boards.splice(boardIndex, 1, updatedBoard);
+  return updatedBoard;
+}
 
 
-
-const deleteBoard= async (id) => {
-  if (!(await DB.removeEntity(TABLE_NAME, id))){
-    return (`Cold not find a board with id: ${id}`);
+/**
+ * re saved [Boards] without (board with @param id)
+ * return 'Board has been deleted'
+ * @param id
+ * @return {Promise<string>}
+ */
+const remove= async (id) => {
+  const boardWithGoodId = Boards.filter(board => board.id === id);
+  Boards = Boards.filter(board => board.id !== id);
+  if(!boardWithGoodId) {
+    throw new Error('Not fond')
   }
-  return 'ok';
+  return 'Board has been deleted' ;
 };
-
-const putBoard = async (id, board) => {
-
-  const entity = await DB.putEntity(TABLE_NAME, id, board);
-  if(!entity) {
-    return (`Cold not find a board with id: ${id}`)
-  }
-  return entity;
-};
-
-
-module.exports = { deleteBoard,
-  getAll,
-  get,
-  postBoard,
-  putBoard,
-
-};
-
+module.exports = {getAll, get, remove, save, update };
