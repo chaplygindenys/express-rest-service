@@ -1,6 +1,6 @@
 import {Request, Response, Router } from 'express';
 import {User} from './user.model';
-
+import {removeUsersTasks} from '../tasks/task.service';
 
 import { postUser, getAllUsers,getUser,putUser, deleteUser } from './user.service';
 
@@ -57,7 +57,7 @@ router.route('/:id').delete(
   async (req: Request, res : Response) => {
     try {
          await deleteUser(req.params.id);
-         // await removeUsersTasks(req.params.id);
+         await removeUsersTasks(req.params.id);
          res.status(204).send('The User has been deleted');
     }
     catch (error) { res.status(404).send('User not found');
