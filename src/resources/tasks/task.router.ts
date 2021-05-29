@@ -20,7 +20,7 @@ router.route('/').post(
       const task = await save({
         "title": req.body.title,
         "order": req.body.order,
-        "description": req.body,
+        "description": req.body.description,
         "userId":req.body.userId ,
         "boardId":req.params.id,
         "columnId": req.body.columnId

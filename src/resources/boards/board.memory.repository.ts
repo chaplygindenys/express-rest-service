@@ -67,7 +67,7 @@ export const updateBoard = async (id:string|number, boardParam:boardParam) => {
  */
 export const removeBoard = async (id:string|number) => {
   const boardWithGoodId = await Boards.filter(board => board.id === id);
-  Boards = Boards.filter(board => board.id !== id);
+  Boards = await Boards.filter(board => board.id !== id);
   if(!boardWithGoodId) {
     throw new Error('Not fond')
   }

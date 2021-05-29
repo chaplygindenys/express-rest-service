@@ -11,7 +11,7 @@ type taskParam = {
 };
 
 
- class Task {
+ export class Task {
    id:string|number ;
 
    title:string;
@@ -57,5 +57,5 @@ type taskParam = {
     this.columnId = columnId
   }
 }
-export default Task;
+
 

@@ -1,3 +1,4 @@
+import {Task} from './task.model';
 
 
 type id = string|number|null ;
@@ -22,7 +23,16 @@ type task1  ={
   columnId:string|null
 
 };
- let Tasks:task1[];
+ let Tasks:task1[]=[];
+  Tasks.push(new Task({
+    title:'T',
+    order:0,
+    description:'d',
+    boardId:'1',
+    userId:'1',
+    columnId:'1'
+
+  }));
 
 /**
  * filtered all tasks by boardId
@@ -90,7 +100,7 @@ export const updateTask = async (TaskId:string|number|null, updates:taskParam) =
  * @param TaskId
  */
 export const removeTask = async (TaskId:string|number|null) => {
-  Tasks = Tasks.filter(task => task.id !== TaskId);
+  Tasks = await Tasks.filter(task => task.id !== TaskId);
   return 'The task has been deleted'
 };
 /**
@@ -100,7 +110,7 @@ export const removeTask = async (TaskId:string|number|null) => {
  * @return {Promise<string>}
  */
 export const removeBoardsTasksById = async (boardId:id) => {
-  Tasks = Tasks.filter(task => task.boardId !== boardId);
+  Tasks = await Tasks.filter(task => task.boardId !== boardId);
   return 'The task has been deleted'
 }
 
@@ -114,7 +124,7 @@ export const removeBoardsTasksById = async (boardId:id) => {
  */
 
 export const removeUsersTasksById = async (userId:id) => {
-  Tasks = Tasks.map(task => {
+  Tasks = await Tasks.map(task => {
     const taskCopy = task;
     if(task.userId === userId) {
 
