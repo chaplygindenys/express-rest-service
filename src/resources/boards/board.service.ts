@@ -1,12 +1,9 @@
 import {Board} from'./board.model';
 import {getAllBoards, saveBoard, getBoard, removeBoard, updateBoard} from'./board.memory.repository';
 
-type typeColumns = {title:string, order:number}[];
-type boardParam = { title: string, columns:
-    { id: string|number,
-      title: string,
-      order: number
-    }[] }
+
+type typeColumns = {title:string,id:string|number, order:number}[];
+
 /**
  * function to initialize method ".get all" from object "boardsRepo"
   * @return {Promise<Boards[]|*[]>}
@@ -40,11 +37,12 @@ export const save =(title:string, columns:typeColumns) => saveBoard(new Board(ti
   ]
 }
  * @param id
- * @param board
+ * @param title
+ * @param columns
  * @return {Promise<{PutObject}|number>}
  */
 
-export const update = (id:string|number, boardParam:boardParam) => updateBoard(id, boardParam);
+export const update = (id:string|number, title:string, columns:typeColumns) => updateBoard(id, title, columns);
 /**
  *function to initialize method".deleteBoard" from
  * object "boardsRepo" with @param id:string

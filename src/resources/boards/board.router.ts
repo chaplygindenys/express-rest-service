@@ -60,7 +60,7 @@ router.route('/:id').delete(
 router.route('/:id').put(
   async (req:Request, res: Response) => {
     try {
-      const board = await update(req.params.id, req.body);
+      const board = await update(req.params.id, req.body.title, req.body.columns);
       res.status(200).json(board);
     } catch (error) {
       res.status(400).send('Bad request');

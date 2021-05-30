@@ -1,6 +1,7 @@
 import { Board } from './board.model';
 
-type boardParam = {title:string, columns:{title:string, id:string|number, order:number}[]};
+
+type typeColumns = {title:string,id:string|number, order:number}[];
 type Board1 = {id:string|number,title:string, columns:{title:string, id:string|number, order:number}[]};
 let Boards:Board1[] = [] ;
 Boards.push(new Board);
@@ -48,11 +49,12 @@ export const saveBoard = async (board:Board1) => {
  * @return {Promise<*&{id}>}
  */
 
-export const updateBoard = async (id:string|number, boardParam:boardParam) => {
+export const updateBoard = async (id:string|number, title:string, columns:typeColumns) => {
   const boardIndex = Boards.findIndex(board => board.id === id);
+
+
   const updatedBoard = {
-    id,
-    ...boardParam
+    id,title, columns
   };
   Boards.splice(boardIndex, 1, updatedBoard);
   return updatedBoard;
