@@ -57,7 +57,7 @@ export const getAllTasks= async (boardId:id) => {
 export  const getTask = async (TaskId:id) => {
   const currentTask = Tasks.find(task => task.id === TaskId);
   if(!currentTask) {
-    throw new Error('Not fond')
+   return false;
   }
   return currentTask;
 }

@@ -1,5 +1,6 @@
-import {Request, Response, Router } from 'express';
+import {Request, Response, NextFunction, Router } from 'express';
 import {getAll, save, get, deleteTask, update} from './task.service';
+
 
 
  const router:Router = Router({mergeParams: true});
@@ -33,23 +34,28 @@ router.route('/').post(
 );
 
 router.route('/:id').get(
-  async (req:Request, res:Response) => {
+  async (req: Request, res : Response, next:NextFunction ) => {
     try {
-      const task = await get(req.params.id);
-       res.status(200).json(task);
+      const task  = await get(req.params.id);
+      if (task) {
+        return  res.status(200).json(task);
+      }
+      return res.status(404).send('Not Found');
     }
-    catch (error) { res.status(404).json('Not Found');
+    catch (error) {
+      return next(error);
     }
+
   }
 );
 
 router.route('/:id').delete(
-  async (req:Request, res:Response) => {
+  async (req:Request, res:Response,) => {
     try {
       const Done = await deleteTask(req.params.id);
       res.status(204).send(Done);
     }
-    catch (error) {res.status(404).send('User not found');
+    catch (error) {res.status(404).send('Task not found');
     }
   }
 );
