@@ -1,5 +1,5 @@
 import  {LOCAL_PORT}   from './common/config';
-// eslint-disable-next-line import/no-unresolved
+
 import app from './app';
 
 
