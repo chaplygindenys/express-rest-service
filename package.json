@@ -9,12 +9,11 @@
   "description": "REST service starter for RS School",
   "main": "src/server.ts",
   "scripts": {
-    "start": "node build/server.js",
+    "start": "ts-node-dev src/server.ts",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
-    "build": "tsc -p tsconfig.json",
-    "dev": "ts-node-dev src/server.ts"
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [
     "rs",
@@ -51,6 +50,7 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "express": "4.17.1",
     "express-wrap-async": "^1.0.3",
+    "http-status-codes": "^2.1.4",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
     "swagger-ui-express": "4.1.6",
