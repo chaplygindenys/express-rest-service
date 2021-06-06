@@ -1,4 +1,4 @@
-import {Request, Response, Router } from 'express';
+import {Request, Response, NextFunction, Router } from 'express';
 import {User} from './user.model';
 import {removeUsersTasks} from '../tasks/task.service';
 
@@ -22,13 +22,18 @@ router.route('/').get(
   });
 
 router.route('/:id').get(
-  async (req: Request, res : Response) => {
+  async (req: Request, res : Response, next:NextFunction ) => {
     try {
       const user = await getUser(req.params.id);
-      res.status(200).json(User.toResponse(user));
+      if (user) {
+     return  res.status(200).json(User.toResponse(user));
+      }
+     return res.status(404).send('Not Found');
     }
-    catch (error) {res.status(404).send('Not Found');
+    catch (error) {
+      return next(error);
     }
+
   }
 );
 
